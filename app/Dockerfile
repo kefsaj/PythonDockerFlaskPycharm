@@ -1,12 +1,23 @@
-FROM python:3.8
+version: "2"
+services:
+  app:
+    build: ./app
+    container_name: "Flask_App"
+    links:
+      - db
+    ports:
+      - "5000:5000"
 
-EXPOSE 5000
+  db:
 
-WORKDIR /app
+    platform: linux/x86_64
+    image: mysql:5.7
+    #platform: linux/amd64
 
-COPY requirements.txt /app
-RUN pip install  -r requirements.txt --upgrade pip
-
-COPY . /app
-
-CMD python app.py
+    container_name: "MySQL_Database"
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
