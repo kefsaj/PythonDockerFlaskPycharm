@@ -1,45 +1,35 @@
 {% extends "layout.html" %}
 {% block content %}
-<form action="/edit/{{address.id}}" method="post">
+
+<form action="/edit/{{age.id}}" method="post">
     <div class="row">
+
         <div class="col">
-            <label for="fldName">First Name</label>
-            <input id="fldName" type="text" class="form-control" placeholder="First Name" name="fldName" value="{{address.fldName}}">
+            <label for="fldYear">Year</label>
+            <input id="fldYear" type="text" class="form-control" placeholder="Year" name="fldYear" value="{{age.fldYear}}">
         </div>
+
         <div class="col">
-            <label for="fldLN">Last Name</label>
-            <input id="fldLN" type="text" class="form-control" placeholder="Last Name"
-                   name="fldLN" value="{{address.fldLN}}">
+            <label for="fldAge">Age</label>
+            <input id="fldAge" type="text" class="form-control" placeholder="Age" name="fldAge" value="{{age.fldAge}}">
         </div>
+
         <div class="col">
-            <label for="fldStreet">Street Address</label>
-            <input id="fldStreet" type="text" class="form-control" placeholder="Street Address" name="fldStreet" value="{{address.fldStreet}}">
+            <label for="fldName">Name</label>
+            <input id="fldName" type="text" class="form-control" placeholder="Name" name="fldName" value="{{age.fldName}}">
         </div>
+
     </div>
 
     <div class="row">
-        <div class="col">
-            <label for="fldCity">City </label>
-            <input id="fldCity" type="text" class="form-control" placeholder="City" name="fldCity" value="{{address.fldCity}}">
-        </div>
-        <div class="col">
-            <label for="fldState">State</label>
-            <input id="fldState" type="text" class="form-control" placeholder="State" name="fldLong" value="{{address.fldState}}">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <label for="fldZip">Zip Code</label>
 
-            <input id="fldZip" type="text" class="form-control" placeholder="Zip Code"
-                   name="fldZip" value="{{address.fldZip}}">
-        </div>
         <div class="col">
-
+            <label for="fldFilm">Film</label>
+            <input id="fldFilm" type="text" class="form-control" placeholder="Film" name="fldFilm" value="{{age.fldFilm}}">
         </div>
+
     </div>
     <button type="submit" class="btn btn-success">Save</button>
 
 </form>
 {% endblock %}
-
