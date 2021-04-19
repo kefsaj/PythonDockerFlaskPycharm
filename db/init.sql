@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS MaleOscarAges (
     `Movie` VARCHAR(34) CHARACTER SET utf8,
     `Column_6` VARCHAR(22) CHARACTER SET utf8
 );
+
+
 INSERT INTO MaleOscarAges VALUES
     ( 1, 1928, 44,' "Emil Jannings"',' "The Last Command',' The Way of All Flesh"'),
     ( 2, 1929, 41,' "Warner Baxter"',' "In Old Arizona"',NULL),
