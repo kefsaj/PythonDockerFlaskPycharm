@@ -12,15 +12,15 @@ app.config['MYSQL_DATABASE_HOST'] = 'db'
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_PORT'] = 3306
-app.config['MYSQL_DATABASE_DB'] = 'citiesData'
+app.config['MYSQL_DATABASE_DB'] = 'addressData'
 mysql.init_app(app)
 
 
 @app.route('/', methods=['GET'])
 def index():
-    user = {'username': 'Cities Project'}
+    user = {'username': 'Address Project'}
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblCitiesImport')
+    cursor.execute('SELECT * FROM tbladdressesImport')
     result = cursor.fetchall()
     return render_template('index.html', title='Home', user=user, cities=result)
 
@@ -28,7 +28,7 @@ def index():
 @app.route('/view/<int:city_id>', methods=['GET'])
 def record_view(city_id):
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblCitiesImport WHERE id=%s', city_id)
+    cursor.execute('SELECT * FROM tbladdressesImport WHERE id=%s', city_id)
     result = cursor.fetchall()
     return render_template('view.html', title='View Form', city=result[0])
 
@@ -36,7 +36,7 @@ def record_view(city_id):
 @app.route('/edit/<int:city_id>', methods=['GET'])
 def form_edit_get(city_id):
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblCitiesImport WHERE id=%s', city_id)
+    cursor.execute('SELECT * FROM tbladdressesImport WHERE id=%s', city_id)
     result = cursor.fetchall()
     return render_template('edit.html', title='Edit Form', city=result[0])
 
@@ -47,7 +47,7 @@ def form_update_post(city_id):
     inputData = (request.form.get('fldName'), request.form.get('fldLat'), request.form.get('fldLong'),
                  request.form.get('fldCountry'), request.form.get('fldAbbreviation'),
                  request.form.get('fldCapitalStatus'), request.form.get('fldPopulation'), city_id)
-    sql_update_query = """UPDATE tblCitiesImport t SET t.fldName = %s, t.fldLat = %s, t.fldLong = %s, t.fldCountry = 
+    sql_update_query = """UPDATE tbladdressesImport t SET t.fldName = %s, t.fldLat = %s, t.fldLong = %s, t.fldCountry = 
     %s, t.fldAbbreviation = %s, t.fldCapitalStatus = %s, t.fldPopulation = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
@@ -64,7 +64,7 @@ def form_insert_post():
     inputData = (request.form.get('fldName'), request.form.get('fldLat'), request.form.get('fldLong'),
                  request.form.get('fldCountry'), request.form.get('fldAbbreviation'),
                  request.form.get('fldCapitalStatus'), request.form.get('fldPopulation'))
-    sql_insert_query = """INSERT INTO tblCitiesImport (fldName,fldLat,fldLong,fldCountry,fldAbbreviation,fldCapitalStatus,fldPopulation) VALUES (%s, %s,%s, %s,%s, %s,%s) """
+    sql_insert_query = """INSERT INTO tbladdressesImport (fldName,fldLat,fldLong,fldCountry,fldAbbreviation,fldCapitalStatus,fldPopulation) VALUES (%s, %s,%s, %s,%s, %s,%s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     return redirect("/", code=302)
@@ -72,7 +72,7 @@ def form_insert_post():
 @app.route('/delete/<int:city_id>', methods=['POST'])
 def form_delete_post(city_id):
     cursor = mysql.get_db().cursor()
-    sql_delete_query = """DELETE FROM tblCitiesImport WHERE id = %s """
+    sql_delete_query = """DELETE FROM tbladdressesImport WHERE id = %s """
     cursor.execute(sql_delete_query, city_id)
     mysql.get_db().commit()
     return redirect("/", code=302)
@@ -81,7 +81,7 @@ def form_delete_post(city_id):
 @app.route('/api/v1/cities', methods=['GET'])
 def api_browse() -> str:
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblCitiesImport')
+    cursor.execute('SELECT * FROM tbladdressesImport')
     result = cursor.fetchall()
     json_result = json.dumps(result);
     resp = Response(json_result, status=200, mimetype='application/json')
@@ -91,7 +91,7 @@ def api_browse() -> str:
 @app.route('/api/v1/cities/<int:city_id>', methods=['GET'])
 def api_retrieve(city_id) -> str:
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblCitiesImport WHERE id=%s', city_id)
+    cursor.execute('SELECT * FROM tbladdressesImport WHERE id=%s', city_id)
     result = cursor.fetchall()
     json_result = json.dumps(result);
     resp = Response(json_result, status=200, mimetype='application/json')
